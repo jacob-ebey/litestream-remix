@@ -1,5 +1,9 @@
 let fs = require("fs");
 
+let { PrismaClient } = require("@prisma/client");
+
+let client = new PrismaClient();
+
 if (process.env.FLY_REGION === process.env.FLY_PRIMARY_REGION) {
   console.log("COPYING PRIMARY LITESTREAM CONFIG");
   fs.copyFileSync("/etc/litestream.primary.yml", "/etc/litestream.yml");
@@ -7,3 +11,11 @@ if (process.env.FLY_REGION === process.env.FLY_PRIMARY_REGION) {
   console.log("COPYING REPLICA LITESTREAM CONFIG");
   fs.copyFileSync("/etc/litestream.replica.yml", "/etc/litestream.yml");
 }
+
+client.$queryRaw`PRAGMA journal_mode = WAL;`
+  .then(() => {
+    console.log("SETUP DB");
+  })
+  .catch((err) => {
+    console.log("SETUP DB FAILED", err);
+  });
