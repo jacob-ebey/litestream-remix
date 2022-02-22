@@ -1,7 +1,8 @@
 import { redirect, useLoaderData } from "remix";
+import type { ActionFunction, HeadersFunction } from "remix";
 import prisma from "~/prisma";
 
-export const action = async () => {
+export const action: ActionFunction = async ({ request }) => {
   await prisma.$queryRaw`PRAGMA journal_mode = WAL;`;
   let count = (await prisma.post.count()) + 1;
   await prisma.post.create({
@@ -11,7 +12,13 @@ export const action = async () => {
     },
   });
 
-  return redirect("/");
+  return redirect("/", {
+    headers: { "fly-replay": `region=${process.env.FLY_PRIMARY_REGION}` },
+  });
+};
+
+export const headers: HeadersFunction = ({ actionHeaders }) => {
+  return actionHeaders;
 };
 
 export const loader = async () => {

@@ -16,12 +16,6 @@ export default function handleRequest(
   if (process.env.FLY_REGION) {
     responseHeaders.set("X-Fly-Region", process.env.FLY_REGION);
   }
-  if (request.method.toLowerCase() === "post") {
-    responseHeaders.set(
-      "fly-replay",
-      `region=${process.env.FLY_PRIMARY_REGION}`
-    );
-  }
 
   return new Response("<!DOCTYPE html>" + markup, {
     status: responseStatusCode,
@@ -30,18 +24,10 @@ export default function handleRequest(
 }
 
 export const handleDataRequest: HandleDataRequestFunction = async (
-  response: Response,
-  { request }
+  response: Response
 ) => {
   if (process.env.FLY_REGION) {
     response.headers.set("X-Fly-Region", process.env.FLY_REGION);
-  }
-
-  if (request.method.toLowerCase() === "post") {
-    response.headers.set(
-      "fly-replay",
-      `region=${process.env.FLY_PRIMARY_REGION}`
-    );
   }
 
   return response;
