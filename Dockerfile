@@ -78,7 +78,7 @@ COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
 ADD . .
 
-ADD copy.js /etc/copy.js
+ADD copy.js /app/copy.js
 ADD etc/litestream.primary.yml /etc/litestream.primary.yml
 ADD etc/litestream.replica.yml /etc/litestream.replica.yml
 

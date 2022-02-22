@@ -4,9 +4,7 @@ set -ex
 
 npx prisma migrate deploy
 
-npx prisma generate
-
-node /etc/copy.js
+node ./copy.js
 
 # npm run start
 # Start litestream and the main application
