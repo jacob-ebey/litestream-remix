@@ -1,0 +1,7 @@
+.env
+.cache
+/build
+/public/build
+node_modules
+
+/prisma/db.sqlite*
