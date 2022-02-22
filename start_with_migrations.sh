@@ -3,6 +3,9 @@
 set -ex
 npx prisma migrate deploy
 
+echo "PRIMARY $FLY_PRIMARY_REGION"
+echo "CURRENT $FLY_REGION"
+
 # Determine which configuration file to use based on region.
 if [ "$FLY_REGION" == "$FLY_PRIMARY_REGION" ]
 then
