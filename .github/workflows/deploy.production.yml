@@ -42,7 +42,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: registry.fly.io/fly-stack-template-app-name:${{ github.sha }}
+          tags: registry.fly.io/rough-surf-2308:${{ github.sha }}
           build-args: |
             COMMIT_SHA=${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -75,6 +75,6 @@ jobs:
       - name: 🚀 Deploy
         uses: superfly/flyctl-actions@1.1
         with:
-          args: "deploy --config ./fly.toml --image registry.fly.io/fly-stack-template-app-name:${{ github.sha }}"
+          args: "deploy --config ./fly.toml --image registry.fly.io/rough-surf-2308:${{ github.sha }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
