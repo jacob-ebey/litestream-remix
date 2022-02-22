@@ -1,4 +1,4 @@
-import { redirect, useLoaderData } from "remix";
+import { json, useLoaderData } from "remix";
 import type { ActionFunction, HeadersFunction } from "remix";
 import prisma from "~/prisma";
 
@@ -12,7 +12,7 @@ export const action: ActionFunction = async ({ request }) => {
     },
   });
 
-  return redirect("/", {
+  return json(null, {
     headers: { "fly-replay": `region=${process.env.FLY_PRIMARY_REGION}` },
   });
 };
