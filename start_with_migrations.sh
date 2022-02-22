@@ -4,6 +4,8 @@ set -ex
 
 npx prisma migrate deploy
 
+npx prisma generate
+
 node /etc/copy.js
 
 # npm run start
