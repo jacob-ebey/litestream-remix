@@ -11,9 +11,12 @@ export const action: ActionFunction = async ({ request }) => {
     },
   });
 
-  return json(null, {
-    headers: { "fly-replay": `region=${process.env.FLY_PRIMARY_REGION}` },
-  });
+  let headers = new Headers();
+  if (process.env.FLY_REGION !== process.env.FLY_PRIMARY_REGION) {
+    headers.set("fly-replay", `region=${process.env.FLY_PRIMARY_REGION}`);
+  }
+
+  return json(null, { headers });
 };
 
 export const headers: HeadersFunction = ({ actionHeaders }) => {
