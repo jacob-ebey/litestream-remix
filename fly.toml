@@ -1,6 +1,6 @@
-# fly.toml file generated for rough-surf-2308 on 2022-02-22T18:28:58+07:00
+# fly.toml file generated for remix-litestream-test on 2022-02-23T00:27:48+07:00
 
-app = "rough-surf-2308"
+app = "remix-litestream-test"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
