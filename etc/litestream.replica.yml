@@ -4,4 +4,4 @@ dbs:
   - path: /data/db
     upstream:
       path: /data/db
-      url: http://${FLY_PRIMARY_REGION}.litestream-remix.internal:9090
+      url: http://${FLY_PRIMARY_REGION}.rough-surf-2308.internal:9090
