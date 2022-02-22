@@ -2,6 +2,7 @@ import { redirect, useLoaderData } from "remix";
 import prisma from "~/prisma";
 
 export const action = async () => {
+  await prisma.$queryRaw`PRAGMA journal_mode = WAL;`;
   let count = (await prisma.post.count()) + 1;
   await prisma.post.create({
     data: {
@@ -14,7 +15,8 @@ export const action = async () => {
 };
 
 export const loader = async () => {
-  let posts = prisma.post.findMany();
+  await prisma.$queryRaw`PRAGMA journal_mode = WAL;`;
+  let posts = await prisma.post.findMany();
   return posts;
 };
 
