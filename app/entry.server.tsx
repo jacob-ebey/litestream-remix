@@ -13,6 +13,9 @@ export default function handleRequest(
   );
 
   responseHeaders.set("Content-Type", "text/html");
+  if (process.env.FLY_REGION) {
+    responseHeaders.set("X-Fly-Region", process.env.FLY_REGION);
+  }
   if (request.method.toLowerCase() === "post") {
     responseHeaders.set(
       "fly-replay",
@@ -30,6 +33,10 @@ export const handleDataRequest: HandleDataRequestFunction = async (
   response: Response,
   { request }
 ) => {
+  if (process.env.FLY_REGION) {
+    response.headers.set("X-Fly-Region", process.env.FLY_REGION);
+  }
+
   if (request.method.toLowerCase() === "post") {
     response.headers.set(
       "fly-replay",
