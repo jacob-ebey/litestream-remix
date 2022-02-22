@@ -3,7 +3,6 @@ import type { ActionFunction, HeadersFunction } from "remix";
 import prisma from "~/prisma";
 
 export const action: ActionFunction = async ({ request }) => {
-  await prisma.$queryRaw`PRAGMA journal_mode = WAL;`;
   let count = (await prisma.post.count()) + 1;
   await prisma.post.create({
     data: {
@@ -22,27 +21,18 @@ export const headers: HeadersFunction = ({ actionHeaders }) => {
 };
 
 export const loader = async () => {
-  await prisma.$queryRaw`PRAGMA journal_mode = WAL;`;
-  let posts = await prisma.post.findMany();
-  return posts;
+  return await prisma.post.count();
 };
 
 export default function Index() {
-  let posts = useLoaderData();
+  let count = useLoaderData();
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
+      <h1>{count} Posts</h1>
       <form method="post" action="/?index">
         <button>Create New Post</button>
       </form>
-      <ul>
-        {posts.map((post: any) => (
-          <li key={post.id}>
-            {post.title} - {post.body}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
