@@ -82,13 +82,10 @@ COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
 COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
 
-# copy over startup script
-ADD start_with_migrations.sh /app/start_with_migrations.sh
-
 # set working dir
 WORKDIR /app
 
-# add prisma files for migration
-ADD prisma .
+# add stuff
+ADD . .
 
 CMD ["sh", "start_with_migrations.sh"]
