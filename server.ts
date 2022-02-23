@@ -22,7 +22,10 @@ app.post("*", (_, res, next) => {
     process.env.FLY_PRIMARY_REGION &&
     process.env.FLY_REGION !== process.env.FLY_PRIMARY_REGION
   ) {
-    res.status(202).end(`rewriting to ${process.env.FLY_PRIMARY_REGION}`);
+    res
+      .status(202)
+      .setHeader("fly-replay", `region=${process.env.FLY_PRIMARY_REGION}`)
+      .end(`rewriting to ${process.env.FLY_PRIMARY_REGION}`);
   } else {
     next();
   }
