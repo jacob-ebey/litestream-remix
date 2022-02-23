@@ -74,8 +74,7 @@ ADD setup-litestream.js /app/setup-litestream.js
 ADD etc/litestream.primary.yml /etc/litestream.primary.yml
 ADD etc/litestream.replica.yml /etc/litestream.replica.yml
 
-# create dir for app and set working dir
-RUN mkdir /app
+# set working dir
 WORKDIR /app
 
 # copy over production deps
