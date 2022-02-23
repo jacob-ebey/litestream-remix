@@ -18,6 +18,13 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
+      - name: Read Fly.toml name
+        uses: SebRollen/toml-action@v1.0.0
+        id: app_name
+        with:
+          file: "fly.toml"
+          field: "app"
+
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -42,7 +49,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: registry.fly.io/remix-litestream-test:${{ github.sha }}
+          tags: registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.sha }}
           build-args: |
             COMMIT_SHA=${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -72,9 +79,16 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
+      - name: Read Fly.toml name
+        uses: SebRollen/toml-action@v1.0.0
+        id: app_name
+        with:
+          file: "fly.toml"
+          field: "app"
+
       - name: 🚀 Deploy
         uses: superfly/flyctl-actions@1.1
         with:
-          args: "deploy --config ./fly.toml --image registry.fly.io/remix-litestream-test:${{ github.sha }}"
+          args: "deploy --config ./fly.toml --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.sha }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

@@ -4,7 +4,7 @@ set -ex
 
 npx prisma migrate deploy
 
-node ./copy.js
+node ./setup-litestream.js
 
 # npm run start
 # Start litestream and the main application

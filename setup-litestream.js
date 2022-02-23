@@ -14,8 +14,9 @@ if (process.env.FLY_REGION === process.env.FLY_PRIMARY_REGION) {
 
 client.$queryRaw`PRAGMA journal_mode = WAL;`
   .then(() => {
-    console.log("SETUP DB");
+    console.log("ENABLED WAL MODE FOR DATABASE");
   })
   .catch((err) => {
-    console.log("SETUP DB FAILED", err);
+    console.log("DB SETUP FAILED", err);
+    process.exit(1);
   });
