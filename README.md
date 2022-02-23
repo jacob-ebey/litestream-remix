@@ -12,10 +12,29 @@
 flyctl auth signup
 ```
 
-3. Setup Fly. It might ask if you want to deploy, say no since you haven't built the app yet.
+3. Create Fly application. We don't want to deploy yet as we have to add volumes for SQLite.
 
 ```sh
-flyctl launch
+flyctl launch --region ord --no-deploy
+```
+
+4. Add volumes to your app in two regions
+
+```sh
+flyctl volumes create --region ord --size 1 data
+flyctl volumes create --region hkg --size 1 data
+```
+
+5. Scale your app to match the number of volumes you have added
+
+```sh
+flyctl scale count 2
+```
+
+6. Deploy your app from the CLI the first time
+
+```sh
+flyctl deploy --remote-only
 ```
 
 ## Development
