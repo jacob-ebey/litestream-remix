@@ -1,5 +1,6 @@
 import express from "express";
 import compression from "compression";
+import morgan from "morgan";
 import { createRequestHandler } from "@remix-run/express";
 
 import * as serverBuild from "@remix-run/dev/server-build";
@@ -15,6 +16,8 @@ app.use(
   express.static("public/build", { immutable: true, maxAge: "1y" })
 );
 app.use(express.static("public", { maxAge: "1h" }));
+
+app.use(morgan("tiny"));
 
 app.post("*", (_, res, next) => {
   if (
