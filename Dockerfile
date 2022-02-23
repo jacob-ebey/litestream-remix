@@ -88,4 +88,7 @@ ADD start_with_migrations.sh /app/start_with_migrations.sh
 # set working dir
 WORKDIR /app
 
+# add prisma files for migration
+ADD prisma .
+
 CMD ["sh", "start_with_migrations.sh"]
