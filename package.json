@@ -5,17 +5,17 @@
   "license": "",
   "sideEffects": false,
   "scripts": {
+    "postinstall": "remix setup node",
     "build": "cross-env NODE_ENV=production remix build",
-    "deploy": "fly deploy --remote-only",
-    "dev": "cross-env NODE_ENV=development remix dev",
-    "postinstall": "remix setup node && npx prisma generate",
-    "start": "cross-env NODE_ENV=production remix-serve build"
+    "dev": "cross-env NODE_ENV=development remix build && run-p dev:*",
+    "dev:node": "cross-env NODE_ENV=development nodemon ./build/index.js",
+    "dev:remix": "cross-env NODE_ENV=development remix watch",
+    "start": "node ./build/index.js"
   },
   "dependencies": {
     "@prisma/client": "^3.9.2",
+    "@remix-run/express": "^1.2.2",
     "@remix-run/react": "^1.2.2",
-    "@remix-run/serve": "^1.2.2",
-    "cross-env": "^7.0.3",
     "prisma": "^3.9.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -25,6 +25,9 @@
     "@remix-run/dev": "^1.2.2",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.15",
+    "npm-run-all": "^4.1.5",
     "typescript": "^4.5.5"
   },
   "engines": {
