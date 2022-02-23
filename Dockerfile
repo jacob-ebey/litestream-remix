@@ -74,9 +74,6 @@ ADD setup-litestream.js /app/setup-litestream.js
 ADD etc/litestream.primary.yml /etc/litestream.primary.yml
 ADD etc/litestream.replica.yml /etc/litestream.replica.yml
 
-# set working dir
-WORKDIR /app
-
 # copy over production deps
 COPY --from=production-deps /app/node_modules /app/node_modules
 # copy over generated prisma client
@@ -84,5 +81,8 @@ COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
 # copy over built application and assets
 COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
+
+# set working dir
+WORKDIR /app
 
 CMD ["sh", "start_with_migrations.sh"]
