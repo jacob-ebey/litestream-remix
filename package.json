@@ -16,6 +16,8 @@
     "@prisma/client": "^3.9.2",
     "@remix-run/express": "^1.2.2",
     "@remix-run/react": "^1.2.2",
+    "compression": "^1.7.4",
+    "express": "^4.17.3",
     "prisma": "^3.9.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
